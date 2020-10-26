@@ -46,7 +46,7 @@ public class Handgun {
 
     private String caliber;
 
-    private Integer capacity;
+    private String capacity;
 
     @Lob
     private String description;

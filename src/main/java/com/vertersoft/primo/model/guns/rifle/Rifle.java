@@ -23,7 +23,7 @@ public class Rifle {
     @Lob
     private Byte[] photo;
 
-    private String price;
+    private Float price;
 
     private Integer leftInStock;
 
@@ -49,7 +49,7 @@ public class Rifle {
 
     private String rifling;
 
-    private String twistRate; //Кількість канавок нарізу
+    private Integer twistRate; //Кількість канавок нарізу
 
     private String velocity;
 

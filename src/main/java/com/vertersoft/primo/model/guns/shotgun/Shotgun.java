@@ -23,7 +23,7 @@ public class Shotgun {
     @Lob
     private Byte[] photo;
 
-    private String price;
+    private Float price;
 
     private Integer leftInStock;
 
