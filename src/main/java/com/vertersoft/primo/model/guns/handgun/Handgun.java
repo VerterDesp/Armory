@@ -2,6 +2,7 @@ package com.vertersoft.primo.model.guns.handgun;
 
 
 import com.vertersoft.primo.model.guns.handgun.enums.HandgunType;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(of = {"id"})
 public class Handgun {
 
     @Id

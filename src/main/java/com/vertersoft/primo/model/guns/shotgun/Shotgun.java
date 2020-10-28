@@ -1,6 +1,7 @@
 package com.vertersoft.primo.model.guns.shotgun;
 
 import com.vertersoft.primo.model.guns.shotgun.enums.ShotgunType;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(of = {"id"})
 public class Shotgun {
 
     @Id
