@@ -1,7 +1,6 @@
 package com.vertersoft.primo.controller;
 
 import com.vertersoft.primo.model.guns.handgun.Handgun;
-import com.vertersoft.primo.repository.HandgunRepository;
 import com.vertersoft.primo.service.HandgunService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

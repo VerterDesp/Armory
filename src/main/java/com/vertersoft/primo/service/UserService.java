@@ -1,6 +1,6 @@
 package com.vertersoft.primo.service;
 
-import com.vertersoft.primo.model.users.User;
+import com.vertersoft.primo.model.users.Customer;
 import com.vertersoft.primo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Optional<User> getUser(Long id) {
+    public Optional<Customer> getUser(Long id) {
         return userRepository
                 .findById(id);
     }
