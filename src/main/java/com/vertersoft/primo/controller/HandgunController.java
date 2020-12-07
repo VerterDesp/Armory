@@ -28,7 +28,7 @@ public class HandgunController {
 
     @GetMapping("{id}")
     public Handgun findOne(@PathVariable Long id) {
-        return handgunService.findOne(id);
+        return handgunService.findById(id);
     }
 
 }

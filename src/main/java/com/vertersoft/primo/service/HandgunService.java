@@ -22,7 +22,7 @@ public class HandgunService {
         return handgunRepository.findAll();
     }
 
-    public Handgun findOne(Long id) {
+    public Handgun findById(Long id) {
         return handgunRepository
                 .findById(id)
                 .orElseThrow(NotFoundException::new);

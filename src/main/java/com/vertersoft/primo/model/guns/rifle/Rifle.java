@@ -1,10 +1,7 @@
 package com.vertersoft.primo.model.guns.rifle;
 
 import com.vertersoft.primo.model.guns.rifle.enums.RifleType;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,17 +9,20 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
 public class Rifle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Enumerated(EnumType.STRING)
     private RifleType rifleType;
 
     @Lob
+    @ToString.Exclude
     private Byte[] photo;
 
     private Float price;
