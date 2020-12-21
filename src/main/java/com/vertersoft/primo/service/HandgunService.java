@@ -1,7 +1,7 @@
 package com.vertersoft.primo.service;
 
-import com.vertersoft.primo.exeptions.ItemExistsException;
-import com.vertersoft.primo.exeptions.NotFoundException;
+import com.vertersoft.primo.exception.ItemExistsException;
+import com.vertersoft.primo.exception.NotFoundException;
 import com.vertersoft.primo.model.guns.handgun.Handgun;
 import com.vertersoft.primo.repository.HandgunRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HandgunService {
@@ -28,7 +29,8 @@ public class HandgunService {
         return handgunRepository
                 .findById(id)
                 .orElseThrow(() ->
-                        new NotFoundException(String.format("Element with id \"%d\" not found", id)));
+                        new NotFoundException(String
+                                .format("Element with id \"%d\" not found", id)));
     }
 
     @Transactional
@@ -38,7 +40,16 @@ public class HandgunService {
         if (!handgunExists) {
             handgunRepository.save(handgun);
         } else {
-            throw new ItemExistsException();
+            throw new ItemExistsException(String
+                    .format("Item %s %s exists", handgun.getModel(), handgun.getBrand()));
         }
     }
+
+//    @Transactional
+//    public Handgun update(Long handgunId, Handgun handgunForUpdate) {
+//        Handgun updatedHandgun = handgunRepository
+//                .findById(handgunId)
+//                .map()
+//
+//    }
 }

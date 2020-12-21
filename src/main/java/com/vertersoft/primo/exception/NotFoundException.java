@@ -1,4 +1,4 @@
-package com.vertersoft.primo.exeptions;
+package com.vertersoft.primo.exception;
 
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,5 +1,6 @@
 package com.vertersoft.primo.model.guns.handgun;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vertersoft.primo.model.guns.handgun.enums.HandgunType;
 import lombok.*;
 
@@ -54,9 +55,6 @@ public class Handgun {
 
     @NotNull
     private String model;
-
-    @NotNull
-    private String serialNumber;
 
     @NotEmpty
     private String caliber;
