@@ -28,9 +28,7 @@ public class HandgunService {
     public Handgun findById(Long id) {
         return handgunRepository
                 .findById(id)
-                .orElseThrow(() ->
-                        new NotFoundException(String
-                                .format("Element with id \"%d\" not found", id)));
+                .orElseThrow(NotFoundException::new);
     }
 
     @Transactional
@@ -45,11 +43,29 @@ public class HandgunService {
         }
     }
 
-//    @Transactional
-//    public Handgun update(Long handgunId, Handgun handgunForUpdate) {
-//        Handgun updatedHandgun = handgunRepository
-//                .findById(handgunId)
-//                .map()
-//
-//    }
+    @Transactional
+    public Handgun update(Long idOfHandgunForUpdate, Handgun handgunForUpdate) {
+        Handgun updatedHandgun = handgunRepository
+                .getOne(idOfHandgunForUpdate);
+
+        updatedHandgun.setHandgunType(handgunForUpdate.getHandgunType());
+        updatedHandgun.setPhoto(handgunForUpdate.getPhoto());
+        updatedHandgun.setPrice(handgunForUpdate.getPrice());
+        updatedHandgun.setLeftInStock(handgunForUpdate.getLeftInStock());
+        updatedHandgun.setWarranty(handgunForUpdate.getWarranty());
+        updatedHandgun.setColor(handgunForUpdate.getColor());
+        updatedHandgun.setWeight(handgunForUpdate.getWeight());
+        updatedHandgun.setTotalLength(handgunForUpdate.getTotalLength());
+        updatedHandgun.setBarrelLength(handgunForUpdate.getBarrelLength());
+        updatedHandgun.setBrand(handgunForUpdate.getBrand());
+        updatedHandgun.setModel(handgunForUpdate.getModel());
+        updatedHandgun.setCaliber(handgunForUpdate.getCaliber());
+        updatedHandgun.setCapacity(handgunForUpdate.getCapacity());
+        updatedHandgun.setCountry(handgunForUpdate.getCountry());
+        updatedHandgun.setDescription(handgunForUpdate.getDescription());
+
+        return updatedHandgun;
+
+
+    }
 }

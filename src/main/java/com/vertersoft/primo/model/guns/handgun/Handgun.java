@@ -21,6 +21,7 @@ public class Handgun {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @NotNull
