@@ -4,10 +4,12 @@ import com.vertersoft.primo.exception.ItemExistsException;
 import com.vertersoft.primo.exception.NotFoundException;
 import com.vertersoft.primo.model.guns.handgun.Handgun;
 import com.vertersoft.primo.repository.HandgunRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,33 +41,23 @@ public class HandgunService {
             handgunRepository.save(handgun);
         } else {
             throw new ItemExistsException(String
-                    .format("Item %s %s exists", handgun.getModel(), handgun.getBrand()));
+                    .format("Item %s %s exists", handgun.getBrand(), handgun.getModel()));
         }
     }
 
     @Transactional
-    public Handgun update(Long idOfHandgunForUpdate, Handgun handgunForUpdate) {
+    public void update(Long idOfHandgunForUpdate, Handgun handgunForUpdate) {
         Handgun updatedHandgun = handgunRepository
                 .getOne(idOfHandgunForUpdate);
 
-        updatedHandgun.setHandgunType(handgunForUpdate.getHandgunType());
-        updatedHandgun.setPhoto(handgunForUpdate.getPhoto());
-        updatedHandgun.setPrice(handgunForUpdate.getPrice());
-        updatedHandgun.setLeftInStock(handgunForUpdate.getLeftInStock());
-        updatedHandgun.setWarranty(handgunForUpdate.getWarranty());
-        updatedHandgun.setColor(handgunForUpdate.getColor());
-        updatedHandgun.setWeight(handgunForUpdate.getWeight());
-        updatedHandgun.setTotalLength(handgunForUpdate.getTotalLength());
-        updatedHandgun.setBarrelLength(handgunForUpdate.getBarrelLength());
-        updatedHandgun.setBrand(handgunForUpdate.getBrand());
-        updatedHandgun.setModel(handgunForUpdate.getModel());
-        updatedHandgun.setCaliber(handgunForUpdate.getCaliber());
-        updatedHandgun.setCapacity(handgunForUpdate.getCapacity());
-        updatedHandgun.setCountry(handgunForUpdate.getCountry());
-        updatedHandgun.setDescription(handgunForUpdate.getDescription());
+        BeanUtils.copyProperties(handgunForUpdate, updatedHandgun, "id");
+        updatedHandgun.setModifiedAt(LocalDateTime.now());
+    }
 
-        return updatedHandgun;
-
-
+    @Transactional
+    public void delete(Long id) {
+        handgunRepository.findById(id)
+                .orElseThrow(NotFoundException::new);
+        handgunRepository.deleteById(id);
     }
 }

@@ -9,14 +9,18 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 public class Handgun {
+
+    public Handgun() {
+        cratedAt = LocalDateTime.now();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +31,11 @@ public class Handgun {
     @NotNull
     @Enumerated(EnumType.STRING)
     private HandgunType handgunType;
+
+    @Setter(AccessLevel.NONE)
+    private LocalDateTime cratedAt;
+
+    private LocalDateTime modifiedAt;
 
     @Lob
     @ToString.Exclude

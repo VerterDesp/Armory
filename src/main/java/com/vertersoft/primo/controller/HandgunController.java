@@ -37,10 +37,18 @@ public class HandgunController {
         return new ResponseEntity<>("OK", HttpStatus.CREATED);
     }
 
-//    @PutMapping("{id}")
-//    public ResponseEntity<Handgun> update(@PathVariable Long id, @RequestBody @Valid Handgun handgun) {
-//
-//    }
+    @PutMapping("{id}")
+    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody @Valid Handgun handgun) {
+        handgunService.update(id, handgun);
+        return new ResponseEntity<>("Update of " +handgun.getModel()+ " successful", HttpStatus.OK);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        handgunService.delete(id);
+        return new ResponseEntity<>("Deleted successful", HttpStatus.OK);
+    }
+
 
 
 
