@@ -1,8 +1,11 @@
 module.exports = {
     devServer: {
-        proxy: {
-            "/": {
-                target: "http://localhost:8000",
+        proxy: "http://localhost:8000"
+    },
+    css: {
+        loaderOptions: {
+            sass: {
+                additionalData: `@import "@/assets/styles/variables.scss";`
             }
         }
     }
