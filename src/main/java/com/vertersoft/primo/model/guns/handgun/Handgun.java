@@ -1,5 +1,6 @@
 package com.vertersoft.primo.model.guns.handgun;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vertersoft.primo.model.guns.handgun.enums.HandgunType;
 import lombok.*;
@@ -32,9 +33,12 @@ public class Handgun {
     @Enumerated(EnumType.STRING)
     private HandgunType handgunType;
 
+    @Column(updatable = false)
     @Setter(AccessLevel.NONE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime cratedAt;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime modifiedAt;
 
     @Lob
