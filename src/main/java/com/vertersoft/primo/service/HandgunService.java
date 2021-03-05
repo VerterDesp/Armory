@@ -28,8 +28,7 @@ public class HandgunService {
     }
 
     public Handgun findById(Long id) {
-        return handgunRepository
-                .findById(id)
+        return handgunRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
     }
 
@@ -56,8 +55,10 @@ public class HandgunService {
 
     @Transactional
     public void delete(Long id) {
-        handgunRepository.findById(id)
+        handgunRepository
+                .findById(id)
                 .orElseThrow(NotFoundException::new);
-        handgunRepository.deleteById(id);
+        handgunRepository
+                .deleteById(id);
     }
 }

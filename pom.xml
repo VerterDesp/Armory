@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.vertersoft</groupId>
 	<artifactId>primo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.2</version>
 	<name>primo.Armory</name>
 	<description>Premium Armory Shop</description>
 
