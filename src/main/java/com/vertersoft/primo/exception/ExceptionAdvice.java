@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ExceptionAdvice {
 
-    @ExceptionHandler(ItemExistsException.class)
-    public ResponseEntity<String> handleItemExists(ItemExistsException ex) {
+    @ExceptionHandler(AlreadyExistsException.class)
+    public ResponseEntity<String> handleItemExists(AlreadyExistsException ex) {
         return ResponseEntity
                 .badRequest()
                 .body(ex.getMessage());

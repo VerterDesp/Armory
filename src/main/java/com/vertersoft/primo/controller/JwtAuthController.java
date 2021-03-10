@@ -14,8 +14,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
+//@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@CrossOrigin
 @RequiredArgsConstructor
 public class JwtAuthController {
 
@@ -23,11 +25,11 @@ public class JwtAuthController {
     private final JwtTokenUtil jwtTokenUtil;
     private final UserService userService;
 
-    @PostMapping("/auth")
-    public ResponseEntity<?> auth(@RequestBody JwtRequest authenticationRequest) throws Exception {
-        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+    @PostMapping("/login")
+    public ResponseEntity<?> auth(@RequestBody @Valid JwtRequest authRequest) throws Exception {
+        authenticate(authRequest.getUsername(), authRequest.getPassword());
         final UserDetails userDetails = userService
-                .loadUserByUsername(authenticationRequest.getUsername());
+                .loadUserByUsername(authRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
     }

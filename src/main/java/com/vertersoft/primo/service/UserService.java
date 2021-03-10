@@ -1,11 +1,17 @@
 package com.vertersoft.primo.service;
 
+import com.vertersoft.primo.dto.UserDTO;
+import com.vertersoft.primo.exception.AlreadyExistsException;
 import com.vertersoft.primo.exception.CustomNotFoundException;
-import com.vertersoft.primo.model.Role;
+import com.vertersoft.primo.exception.message.MessageResponse;
+import com.vertersoft.primo.model.users.ERole;
+import com.vertersoft.primo.model.users.Role;
 import com.vertersoft.primo.model.users.User;
+import com.vertersoft.primo.model.users.UserDetail;
 import com.vertersoft.primo.repository.RoleRepository;
 import com.vertersoft.primo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,61 +19,63 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-       User user = this.findByPhoneNumber(login);
-       return new org.springframework.security.core.userdetails.User(
-               user.getPhoneNumber(), user.getPassword(), new ArrayList<>());
+        User user = isNumber(login) ? this.findByPhoneNumber(login) : this.findByEmail(login);
+        return UserDetail.build(user);
     }
 
-    @Transactional
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    @Transactional
-    public void save(User user) {
-//        Role userRole = roleRepository
-//                .findByName("ROLE_USER")
-//                .orElseThrow(() ->
-//                        new CustomNotFoundException(
-//                                String.format("Role %s not found", "ROLE_USER")));
-//        user.setRoles(Collections.singletonList(userRole));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public void save(UserDTO userDTO) {
+        if (userRepository.existsByEmail(userDTO.getEmail()))
+            throw new AlreadyExistsException("Email already in use!");
+
+        if (userRepository.existsByPhoneNumber(userDTO.getPhoneNumber()))
+            throw new AlreadyExistsException("Number already in use!");
+
+        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                .orElseThrow(() -> new CustomNotFoundException(String.format
+                        ("No role \"%s\" found", ERole.ROLE_USER.toString())));
+
+        User user = new User(userDTO.getFullName(),
+                Arrays.asList(userRole),
+                userDTO.getPhoto(),
+                userDTO.getPhoneNumber(),
+                userDTO.getEmail(),
+                passEncoder.encode(userDTO.getPassword()));
         userRepository.save(user);
     }
 
-    @Transactional
-    public User getUser(Long id) {
-        return userRepository.findById(id)
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
                 .orElseThrow(() ->
-                        new CustomNotFoundException(String.format
-                                ("No user with id - \"%d\" found", id)));
+                        new UsernameNotFoundException(String.format
+                                ("No user with email \"%s\" found", email)));
     }
 
-    @Transactional
     public User findByPhoneNumber(String phoneNumber) {
         return userRepository.findByPhoneNumber(phoneNumber)
                 .orElseThrow(() ->
-                        new CustomNotFoundException(String.format
+                        new UsernameNotFoundException(String.format
                                 ("No user with number - \"%s\" found", phoneNumber)));
     }
 
-    @Transactional
-    public User findByPhoneNumberAndPassword(String phoneNumber, String password) {
-        return userRepository.findByPhoneNumberAndPassword(phoneNumber, password)
-                .orElseThrow(() ->
-                        new CustomNotFoundException("Bad credentials"));
+    public boolean isNumber(String login) {
+        return login.chars().allMatch(Character::isDigit);
     }
 }

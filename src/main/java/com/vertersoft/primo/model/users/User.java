@@ -1,42 +1,34 @@
 package com.vertersoft.primo.model.users;
 
-import com.vertersoft.primo.model.Role;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.List;
 
-
-@Getter
-@Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString
+@Data
 @NoArgsConstructor
 @Entity(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
     private Long id;
 
     private String fullName;
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "user_role",
-//        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-//        inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-//    private List<Role> roles;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
 
     @Lob
     @ToString.Exclude
-    private Byte[] userPhoto;
+    @EqualsAndHashCode.Exclude
+    private Byte[] photo;
 
-    @NotBlank
-    @Size(min = 10, max = 13)
     @Column(unique = true)
     private String phoneNumber;
 
@@ -44,8 +36,20 @@ public class User {
     @Column(unique = true)
     private String email;
 
-
     @NotBlank
     private String password;
 
+    public User(String fullName,
+                List<Role> roles,
+                Byte[] photo,
+                String phoneNumber,
+                @Email String email,
+                @NotBlank String password) {
+        this.fullName = fullName;
+        this.roles = roles;
+        this.photo = photo;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.password = password;
+    }
 }

@@ -1,21 +1,21 @@
-package com.vertersoft.primo.model;
+package com.vertersoft.primo.model.users;
 
 import com.vertersoft.primo.model.users.User;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
 @Data
+@NoArgsConstructor
+@Entity
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
-//    @ManyToMany(mappedBy = "roles",fetch = FetchType.LAZY)
-//    private List<User> users;
+    @Enumerated(EnumType.STRING)
+    private ERole name;
 }

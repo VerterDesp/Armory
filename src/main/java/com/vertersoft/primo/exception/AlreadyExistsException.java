@@ -3,9 +3,9 @@ package com.vertersoft.primo.exception;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class ItemExistsException extends RuntimeException {
+public class AlreadyExistsException extends RuntimeException {
 
-    public ItemExistsException(String message) {
+    public AlreadyExistsException(String message) {
         super(message);
     }
 }

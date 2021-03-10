@@ -1,6 +1,6 @@
 package com.vertersoft.primo.service;
 
-import com.vertersoft.primo.exception.ItemExistsException;
+import com.vertersoft.primo.exception.AlreadyExistsException;
 import com.vertersoft.primo.exception.NotFoundException;
 import com.vertersoft.primo.model.guns.handgun.Handgun;
 import com.vertersoft.primo.repository.HandgunRepository;
@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class HandgunService {
@@ -39,7 +38,7 @@ public class HandgunService {
         if (!handgunExists) {
             handgunRepository.save(handgun);
         } else {
-            throw new ItemExistsException(String
+            throw new AlreadyExistsException(String
                     .format("Item %s %s exists", handgun.getBrand(), handgun.getModel()));
         }
     }
