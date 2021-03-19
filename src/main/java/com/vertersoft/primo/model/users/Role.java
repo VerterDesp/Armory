@@ -1,5 +1,6 @@
 package com.vertersoft.primo.model.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vertersoft.primo.model.users.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
     @Enumerated(EnumType.STRING)
