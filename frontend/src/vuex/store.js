@@ -4,6 +4,7 @@ import commonActions from './actions/actions'
 import apiRequests from './actions/api-requests'
 import mutations from "@/vuex/mutations/mutations";
 import getters from "@/vuex/getters/getters";
+import  { auth } from "@/vuex/auth.module";
 
 const actions = {...commonActions, ...apiRequests}
 
@@ -16,7 +17,10 @@ let store = new Vuex.Store( {
     },
     mutations,
     actions,
-    getters
+    getters,
+    modules: {
+        auth
+    }
 });
 
 export default store;

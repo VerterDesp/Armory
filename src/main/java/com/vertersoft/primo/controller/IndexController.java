@@ -30,12 +30,6 @@ public class IndexController {
         return userService.findAll();
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody @Valid UserDTO user) {
-        userService.save(user);
-        return new ResponseEntity<>("User created", HttpStatus.CREATED);
-    }
-
     @GetMapping("/user")
     public String userAccess() {
         return "User Content";
