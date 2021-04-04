@@ -13,11 +13,14 @@ import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
-public class UserDetail implements UserDetails {
+public class UserDetail implements UserDetails, UserBasic {
 
+    @JsonIgnore
     private Long id;
 
-    private String fullName;
+    private String firstName;
+
+    private String lastName;
 
     private Collection<? extends GrantedAuthority> authorities;
 
@@ -37,7 +40,8 @@ public class UserDetail implements UserDetails {
 
         return new UserDetail(
                 user.getId(),
-                user.getFullName(),
+                user.getFirstName(),
+                user.getLastName(),
                 authoritiesFromRoles,
                 user.getPhoto(),
                 user.getPhoneNumber(),

@@ -2,9 +2,9 @@ INSERT INTO public.role(name)VALUES ('ROLE_USER');
 INSERT INTO public.role(name)VALUES ('ROLE_MODERATOR');
 INSERT INTO public.role(name)VALUES ('ROLE_ADMIN');
 
-INSERT INTO public.users(email, full_name, password, phone_number, photo) VALUES ('user@mail.com', 'Simple User', '$2a$10$5kjo5h7CXfub1qYeCTCxye0PsFUk3DxQg006nqjp8IZNS1GOIPYBu', '0932564759', NULL);
-INSERT INTO public.users(email, full_name, password, phone_number, photo) VALUES ('moder@mail.com', 'Moder User', '$2a$10$lqNK.aOKeLyZ0p0SuDmJvO3FrH1Y2OkFyLJve4fmkd2St3wookqVC', '0932564760', NULL);
-INSERT INTO public.users(email, full_name, password, phone_number, photo) VALUES ('admin@mail.com', 'Admin User', '$2a$10$L2Tg2wXFvRKKGyGNBzwWVeLsG2zNqQGa5mCS7fgLNL1dSgV456i2K', '0932564777', NULL);
+INSERT INTO public.users(email, first_name, last_name, password, phone_number, photo) VALUES ('user@mail.com', 'Simple', 'SUser', '$2a$10$5kjo5h7CXfub1qYeCTCxye0PsFUk3DxQg006nqjp8IZNS1GOIPYBu', '0932564759', NULL);
+INSERT INTO public.users(email, first_name, last_name, password, phone_number, photo) VALUES ('moder@mail.com', 'Moder', 'MUser', '$2a$10$lqNK.aOKeLyZ0p0SuDmJvO3FrH1Y2OkFyLJve4fmkd2St3wookqVC', '0932564760', NULL);
+INSERT INTO public.users(email, first_name, last_name, password, phone_number, photo) VALUES ('admin@mail.com', 'Admin', 'Gangsta', '$2a$10$L2Tg2wXFvRKKGyGNBzwWVeLsG2zNqQGa5mCS7fgLNL1dSgV456i2K', '0932564777', NULL);
 INSERT INTO public.user_roles(user_id, role_id)VALUES (1, 1);
 INSERT INTO public.user_roles(user_id, role_id)VALUES (2, 2);
 INSERT INTO public.user_roles(user_id, role_id)VALUES (3, 3);

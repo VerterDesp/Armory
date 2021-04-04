@@ -1,33 +1,37 @@
 <template>
     <div class="main-wrapper">
         <nav class="navbar navbar-expand navbar-dark bg-dark">
-            <a href class="navbar-brand" @click.prevent>Primo</a>
+            <div class="navbar-brand" @click.prevent>
+                <router-link to="/catalog" class="nav-link">
+                    Primo
+                </router-link>
+            </div>
             <div class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <router-link to="/home" class="nav-link">
-                        <font-awesome-icon icon="home" />Home
+                        <font-awesome-icon icon="home" /> Home
                     </router-link>
                 </li>
                 <li v-if="showAdminBoard" class="nav-item">
-                    <router-link to="/admin" class="nav-link">Admin Board</router-link>
+                    <router-link to="/admin" class="nav-link"> Admin Board</router-link>
                 </li>
                 <li v-if="showModeratorBoard" class="nav-item">
-                    <router-link to="/mod" class="nav-link">Moderator Board</router-link>
+                    <router-link to="/moder" class="nav-link"> Moderator Board</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
+                    <router-link v-if="currentUser" to="/user" class="nav-link"> User</router-link>
                 </li>
             </div>
 
             <div v-if="!currentUser" class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <router-link to="/register" class="nav-link">
-                        <font-awesome-icon icon="user-plus" />Sign Up
+                    <router-link to="/sign_up" class="nav-link">
+                        <font-awesome-icon icon="user-plus" /> Sign Up
                     </router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link to="/login" class="nav-link">
-                        <font-awesome-icon icon="sign-in-alt" />Sign In
+                    <router-link to="/sign_in" class="nav-link">
+                        <font-awesome-icon icon="sign-in-alt" /> Sign In
                     </router-link>
                 </li>
             </div>
@@ -36,12 +40,12 @@
                 <li class="nav-item">
                     <router-link to="/profile" class="nav-link">
                         <font-awesome-icon icon="user" />
-                        {{ currentUser.fullName }}
+                        {{ currentUser.firstName }}
                     </router-link>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href @click.prevent="logOut">
-                        <font-awesome-icon icon="sign-out-alt" />Sign Out
+                        <font-awesome-icon icon="sign-out-alt" /> Sign Out
                     </a>
                 </li>
             </div>
@@ -56,7 +60,6 @@
 </template>
 
 <script>
-
     export default {
         name: 'main-wrapper',
         props: {},
@@ -89,8 +92,7 @@
                 this.$store.dispatch('auth/logout');
                 this.$router.push('/sign_in');
             }
-        },
-        watch: {},
+        }
     }
 </script>
 

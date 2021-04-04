@@ -1,12 +1,10 @@
-package com.vertersoft.primo.model.users;
+package com.vertersoft.primo.model.users.role;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vertersoft.primo.model.users.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @NoArgsConstructor

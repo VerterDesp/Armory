@@ -1,6 +1,7 @@
 package com.vertersoft.primo.model.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vertersoft.primo.model.users.role.Role;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,14 +12,16 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity(name = "users")
-public class User {
+public class User implements UserBasic {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Long id;
 
-    private String fullName;
+    private String firstName;
+
+    private String lastName;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
@@ -42,13 +45,15 @@ public class User {
     @JsonIgnore
     private String password;
 
-    public User(String fullName,
+    public User(String firstName,
+                String secondName,
                 List<Role> roles,
                 Byte[] photo,
                 String phoneNumber,
                 @Email String email,
                 @NotBlank String password) {
-        this.fullName = fullName;
+        this.firstName = firstName;
+        this.lastName = secondName;
         this.roles = roles;
         this.photo = photo;
         this.phoneNumber = phoneNumber;

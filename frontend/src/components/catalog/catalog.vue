@@ -3,7 +3,7 @@
         <router-link :to="{name: 'cart', params: {cart_data: CART}}">
             <div class="catalog__link_to_cart">Cart: {{CART.length}}</div>
         </router-link>
-        <h1>Catalog</h1>
+        <h1></h1>
         <div class="catalog__list">
             <!-- :key - its ID(with cycle its iteration by ID) -->
             <!-- v-bind - its binding child comp. with variable in this vue file -->
@@ -63,9 +63,9 @@
         }
         &__link_to_cart {
             position: absolute;
-            top: 10px;
+            top: 42px;
             right: 10px;
-            padding: $padding * 2;
+            padding: $padding / 4;
             border: solid 1px #aeaeae;
         }
     }

@@ -10,7 +10,7 @@
                 <div class="form-group">
                     <label for="login">Login</label>
                     <input
-                            v-model="user.phoneNumber"
+                            v-model="user.username"
                             v-validate="'required'"
                             type="text"
                             class="form-control"
@@ -40,7 +40,7 @@
                 <div class="form-group">
                     <button class="btn btn-primary btn-block" :disabled="loading">
                         <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-                        <span>Login</span>
+                        <span> Login</span>
                     </button>
                 </div>
                 <div class="form-group">
@@ -90,7 +90,7 @@
                             error => {
                                 this.loading = false;
                                 this.message =
-                                    (error.response && error.response.data) ||
+                                    (error.response && error.response.data && error.response.data.message) ||
                                     error.message ||
                                     error.toString();
                             }

@@ -1,10 +1,10 @@
 package com.vertersoft.primo.service;
 
-import com.vertersoft.primo.dto.UserDTO;
+import com.vertersoft.primo.controller.request.RegisterRequest;
 import com.vertersoft.primo.exception.AlreadyExistsException;
 import com.vertersoft.primo.exception.CustomNotFoundException;
-import com.vertersoft.primo.model.users.ERole;
-import com.vertersoft.primo.model.users.Role;
+import com.vertersoft.primo.model.users.role.ERole;
+import com.vertersoft.primo.model.users.role.Role;
 import com.vertersoft.primo.model.users.User;
 import com.vertersoft.primo.model.users.UserDetail;
 import com.vertersoft.primo.repository.RoleRepository;
@@ -17,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.Email;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -41,27 +40,28 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public void save(UserDTO userDTO) {
-        Optional.ofNullable(userDTO.getEmail())
+    public void save(RegisterRequest registerRequest) {
+        Optional.ofNullable(registerRequest.getEmail())
                 .ifPresent(email -> {
                     if (userRepository.existsByEmail(email)) {
                         throw new AlreadyExistsException("Email already in use!");
                     }
                 });
 
-        Optional.ofNullable(userDTO.getPhoneNumber())
+        Optional.ofNullable(registerRequest.getPhoneNumber())
                 .ifPresent(num -> {
                     if (userRepository.existsByPhoneNumber(num)) {
                         throw new AlreadyExistsException("Number already in use!");
                     }
                 });
 
-        User user = new User(userDTO.getFullName(),
+        User user = new User(registerRequest.getFirstName(),
+                registerRequest.getLastName(),
                 Arrays.asList(this.findUserRole()),
-                userDTO.getPhoto(),
-                userDTO.getPhoneNumber(),
-                userDTO.getEmail(),
-                passEncoder.encode(userDTO.getPassword()));
+                registerRequest.getPhoto(),
+                registerRequest.getPhoneNumber(),
+                registerRequest.getEmail(),
+                passEncoder.encode(registerRequest.getPassword()));
         userRepository.save(user);
     }
 

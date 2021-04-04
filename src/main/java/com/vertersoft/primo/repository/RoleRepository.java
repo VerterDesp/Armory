@@ -1,7 +1,7 @@
 package com.vertersoft.primo.repository;
 
-import com.vertersoft.primo.model.users.ERole;
-import com.vertersoft.primo.model.users.Role;
+import com.vertersoft.primo.model.users.role.ERole;
+import com.vertersoft.primo.model.users.role.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

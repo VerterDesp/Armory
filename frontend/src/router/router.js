@@ -54,7 +54,7 @@ let router = new Router({
             component: () => import('@/components/views/BoardUser.vue')
         },
         {
-            path: '/',
+            path: '/catalog',
             name: 'catalog',
             component: catalog
         },
@@ -69,16 +69,16 @@ let router = new Router({
 
 export default router;
 
-router.beforeEach((to, from, next) => {
-    const publicPages = ['/sign_in', '/sign_up', '/home'];
-    const authRequired = !publicPages.includes(to.path);
-    const loggedIn = localStorage.getItem('user');
-
-    // trying to access a restricted page + not logged in
-    // redirect to login page
-    if (authRequired && !loggedIn) {
-        next('/sign_in');
-    } else {
-        next();
-    }
-});
+// router.beforeEach((to, from, next) => {
+//     const publicPages = ['/sign_in', '/sign_up', '/home', '/catalog', '/cart'];
+//     const authRequired = !publicPages.includes(to.path);
+//     const loggedIn = localStorage.getItem('user');
+//
+//     // trying to access a restricted page + not logged in
+//     // redirect to login page
+//     if (authRequired && !loggedIn) {
+//         next('/sign_in');
+//     } else {
+//         next();
+//     }
+// });

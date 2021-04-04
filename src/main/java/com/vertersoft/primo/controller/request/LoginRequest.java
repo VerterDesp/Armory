@@ -1,4 +1,4 @@
-package com.vertersoft.primo.security.jwt;
+package com.vertersoft.primo.controller.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtRequest {
+public class LoginRequest {
 
     @NotBlank
     private String username;

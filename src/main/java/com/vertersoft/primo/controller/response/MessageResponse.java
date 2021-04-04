@@ -1,4 +1,4 @@
-package com.vertersoft.primo.exception.message;
+package com.vertersoft.primo.controller.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

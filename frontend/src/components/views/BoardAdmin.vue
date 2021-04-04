@@ -10,7 +10,7 @@
     import UserService from '@/services/user.service';
 
     export default {
-        name: 'User',
+        name: 'Admin',
         data() {
             return {
                 content: ''
@@ -23,7 +23,7 @@
                 },
                 error => {
                     this.content =
-                        (error.response && error.response.data) ||
+                        (error.response && error.response.data && error.response.data.message) ||
                         error.message ||
                         error.toString();
                 }

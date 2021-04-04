@@ -1,4 +1,4 @@
-package com.vertersoft.primo.model.users;
+package com.vertersoft.primo.model.users.role;
 
 public enum ERole {
     ROLE_USER,

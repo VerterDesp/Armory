@@ -12,7 +12,7 @@
                         <label for="fullName">Full Name</label>
                         <input
                                 v-model="user.fullName"
-                                v-validate="'required|min:3|max:50'"
+                                v-validate="'min:3|max:30'"
                                 type="text"
                                 class="form-control"
                                 name="fullName"
@@ -53,7 +53,7 @@
                         <label for="email">Email</label>
                         <input
                                 v-model="user.email"
-                                v-validate="'required|email|max:50'"
+                                v-validate="{required: false, email: true, max:50}"
                                 type="email"
                                 class="form-control"
                                 name="email"
