@@ -3,6 +3,7 @@ package com.vertersoft.primo.service;
 import com.vertersoft.primo.controller.request.RegisterRequest;
 import com.vertersoft.primo.exception.AlreadyExistsException;
 import com.vertersoft.primo.exception.CustomNotFoundException;
+import com.vertersoft.primo.exception.WrongFormatException;
 import com.vertersoft.primo.model.users.role.ERole;
 import com.vertersoft.primo.model.users.role.Role;
 import com.vertersoft.primo.model.users.User;
@@ -43,16 +44,18 @@ public class UserService implements UserDetailsService {
     public void save(RegisterRequest registerRequest) {
         Optional.ofNullable(registerRequest.getEmail())
                 .ifPresent(email -> {
-                    if (userRepository.existsByEmail(email)) {
+                    if (!email.isEmpty() && userRepository.existsByEmail(email)) {
                         throw new AlreadyExistsException("Email already in use!");
                     }
                 });
 
         Optional.ofNullable(registerRequest.getPhoneNumber())
                 .ifPresent(num -> {
-                    if (userRepository.existsByPhoneNumber(num)) {
-                        throw new AlreadyExistsException("Number already in use!");
-                    }
+                    if (isNumber(num)) {
+                        if (!num.isEmpty() && userRepository.existsByPhoneNumber(num)) {
+                            throw new AlreadyExistsException("Number already in use!");
+                        }
+                    } else throw new WrongFormatException("Wrong number format!");
                 });
 
         User user = new User(registerRequest.getFirstName(),

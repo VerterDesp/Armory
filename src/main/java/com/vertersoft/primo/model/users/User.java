@@ -34,11 +34,10 @@ public class User implements UserBasic {
     @EqualsAndHashCode.Exclude
     private Byte[] photo;
 
-    @Column(unique = true)
+    @NotBlank
     private String phoneNumber;
 
     @Email
-    @Column(unique = true)
     private String email;
 
     @NotBlank

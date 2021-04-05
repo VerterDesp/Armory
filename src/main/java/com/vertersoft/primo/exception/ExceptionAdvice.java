@@ -15,6 +15,13 @@ public class ExceptionAdvice {
                 .body(ex.getMessage());
     }
 
+    @ExceptionHandler(WrongFormatException.class)
+    public ResponseEntity<String> handleWrongFormat(WrongFormatException ex) {
+        return ResponseEntity
+                .badRequest()
+                .body(ex.getMessage());
+    }
+
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Object> handleNotFound() {
         return ResponseEntity

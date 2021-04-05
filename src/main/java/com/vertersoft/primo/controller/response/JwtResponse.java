@@ -1,7 +1,5 @@
 package com.vertersoft.primo.controller.response;
 
-import com.vertersoft.primo.model.users.UserBasic;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

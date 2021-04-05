@@ -3,8 +3,9 @@ package com.vertersoft.primo.exception;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class CustomNotFoundException extends RuntimeException {
-    public CustomNotFoundException(String message) {
+public class WrongFormatException extends RuntimeException {
+
+    public WrongFormatException(String message) {
         super(message);
     }
 }

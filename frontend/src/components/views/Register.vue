@@ -9,18 +9,32 @@
             <form name="form" @submit.prevent="handleRegister">
                 <div v-if="!successful">
                     <div class="form-group">
-                        <label for="fullName">Full Name</label>
+                        <label for="firstName">First Name</label>
                         <input
-                                v-model="user.fullName"
+                                v-model="user.firstName"
                                 v-validate="'min:3|max:30'"
                                 type="text"
                                 class="form-control"
-                                name="fullName"
+                                name="firstName"
                         />
                         <div
-                                v-if="submitted && errors.has('fullName')"
+                                v-if="submitted && errors.has('firstName')"
                                 class="alert-danger"
-                        >{{errors.first('fullName')}}</div>
+                        >{{errors.first('firstName')}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input
+                                v-model="user.lastName"
+                                v-validate="'min:3|max:30'"
+                                type="text"
+                                class="form-control"
+                                name="lastName"
+                        />
+                        <div
+                                v-if="submitted && errors.has('lastName')"
+                                class="alert-danger"
+                        >{{errors.first('lastName')}}</div>
                     </div>
 <!--                    <div class="form-group">-->
 <!--                        <label for="photo">User photo</label>-->
@@ -39,7 +53,7 @@
                         <label for="phoneNumber">Phone Number</label>
                         <input
                                 v-model="user.phoneNumber"
-                                v-validate="'required|min:10|max:13'"
+                                v-validate="'numeric|required|min:10|max:13'"
                                 type="text"
                                 class="form-control"
                                 name="phoneNumber"
@@ -99,7 +113,7 @@
         name: 'Register',
         data() {
             return {
-                user: new User('', '', '', '', ''),
+                user: new User('', '', '', '', '', ''),
                 submitted: false,
                 successful: false,
                 message: ''
