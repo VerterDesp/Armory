@@ -1,4 +1,4 @@
-package com.vertersoft.primo.model.guns.rifle.enums;
+package com.vertersoft.primo.model.gun.rifle.enums;
 
 public enum RifleType {
     /*

@@ -48,10 +48,10 @@ let router = new Router({
             component: () => import('@/components/views/BoardModerator.vue')
         },
         {
-            path: '/user',
-            name: 'user',
+            path: '/client',
+            name: 'client',
             // lazy-loaded
-            component: () => import('@/components/views/BoardUser.vue')
+            component: () => import('@/components/views/BoardClient.vue')
         },
         {
             path: '/catalog',
@@ -72,7 +72,7 @@ export default router;
 // router.beforeEach((to, from, next) => {
 //     const publicPages = ['/sign_in', '/sign_up', '/home', '/catalog', '/cart'];
 //     const authRequired = !publicPages.includes(to.path);
-//     const loggedIn = localStorage.getItem('user');
+//     const loggedIn = localStorage.getItem('client');
 //
 //     // trying to access a restricted page + not logged in
 //     // redirect to login page

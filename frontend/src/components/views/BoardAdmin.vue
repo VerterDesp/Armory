@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import UserService from '@/services/user.service';
+    import ClientService from '@/services/client.service';
 
     export default {
         name: 'Admin',
@@ -17,7 +17,7 @@
             };
         },
         mounted() {
-            UserService.getAdminBoard().then(
+          ClientService.getAdminBoard().then(
                 response => {
                     this.content = response.data;
                 },

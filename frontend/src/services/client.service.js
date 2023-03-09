@@ -1,13 +1,13 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-class UserService {
+class ClientService {
     getPublicContent() {
         return axios.get('/all');
     }
 
-    getUserBoard() {
-        return axios.get('/user', { headers: authHeader() });
+    getClientBoard() {
+        return axios.get('/client', { headers: authHeader() });
     }
 
     getModeratorBoard() {
@@ -19,4 +19,4 @@ class UserService {
     }
 }
 
-export default new UserService();
+export default new ClientService();

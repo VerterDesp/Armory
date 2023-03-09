@@ -2,36 +2,33 @@ package com.vertersoft.primo.service;
 
 import com.vertersoft.primo.exception.AlreadyExistsException;
 import com.vertersoft.primo.exception.NotFoundException;
-import com.vertersoft.primo.model.guns.handgun.Handgun;
+import com.vertersoft.primo.model.gun.handgun.Handgun;
 import com.vertersoft.primo.repository.HandgunRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class HandgunService {
 
     private final HandgunRepository handgunRepository;
-
-    @Autowired
-    public HandgunService(HandgunRepository handgunRepository) {
-        this.handgunRepository = handgunRepository;
-    }
 
     public List<Handgun> findAll() {
         return handgunRepository.findAll();
     }
 
-    public Handgun findById(Long id) {
+    public Handgun findById(UUID id) {
         return handgunRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
     }
 
-    @Transactional
     public void save(Handgun handgun) {
         final boolean handgunExists = handgunRepository
                 .existsByModelAndBrand(handgun.getModel(), handgun.getBrand());
@@ -43,17 +40,15 @@ public class HandgunService {
         }
     }
 
-    @Transactional
-    public void update(Long idOfHandgunForUpdate, Handgun handgunForUpdate) {
+    public void update(UUID idOfHandgunForUpdate, Handgun handgunForUpdate) {
         Handgun updatedHandgun = handgunRepository
-                .getOne(idOfHandgunForUpdate);
+                .findById(idOfHandgunForUpdate).orElseThrow(() -> new NotFoundException("Handgun not found"));
 
         BeanUtils.copyProperties(handgunForUpdate, updatedHandgun, "id");
         updatedHandgun.setModifiedAt(LocalDateTime.now());
     }
 
-    @Transactional
-    public void delete(Long id) {
+    public void delete(UUID id) {
         handgunRepository
                 .findById(id)
                 .orElseThrow(NotFoundException::new);

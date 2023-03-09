@@ -1,29 +1,25 @@
-package com.vertersoft.primo.model.guns.shotgun;
+package com.vertersoft.primo.model.gun.shotgun;
 
-import com.vertersoft.primo.model.guns.shotgun.enums.ShotgunType;
+import com.vertersoft.primo.model.gun.shotgun.enums.ShotgunType;
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString
+@Data
 public class Shotgun {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @EqualsAndHashCode.Include
-    private Long id;
+    private UUID id;
 
     @Enumerated(EnumType.STRING)
     private ShotgunType shotgunType;
 
-    @Lob
     @ToString.Exclude
-    private Byte[] photo;
+    private String photo;
 
     private Float price;
 
@@ -49,6 +45,5 @@ public class Shotgun {
 
     private String capacity;
 
-    @Lob
     private String description;
 }

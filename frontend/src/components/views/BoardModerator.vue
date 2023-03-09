@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import UserService from '@/services/user.service';
+    import ClientService from '@/services/client.service';
 
     export default {
         name: 'Moderator',
@@ -17,7 +17,7 @@
             };
         },
         mounted() {
-            UserService.getModeratorBoard().then(
+          ClientService.getModeratorBoard().then(
                 response => {
                     this.content = response.data;
                 },

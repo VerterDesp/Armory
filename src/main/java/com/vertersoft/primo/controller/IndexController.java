@@ -1,7 +1,7 @@
 package com.vertersoft.primo.controller;
 
-import com.vertersoft.primo.model.users.User;
-import com.vertersoft.primo.service.UserService;
+import com.vertersoft.primo.model.client.Client;
+import com.vertersoft.primo.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class IndexController {
 
-    private final UserService userService;
+    private final ClientService clientService;
 
     @GetMapping
     public String index() {
@@ -22,13 +22,13 @@ public class IndexController {
     }
 
     @GetMapping("/all")
-    public List<User> getAll() {
-        return userService.findAll();
+    public List<Client> getAll() {
+        return clientService.findAll();
     }
 
-    @GetMapping("/user")
+    @GetMapping("/client")
     public String userAccess() {
-        return "User Content";
+        return "Client Content";
     }
 
     @GetMapping("/moder")

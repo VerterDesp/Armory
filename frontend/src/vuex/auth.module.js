@@ -1,19 +1,19 @@
 import AuthService from '../services/auth.service';
 
-const user = JSON.parse(localStorage.getItem('user'));
-const initialState = user
-    ? { status: { loggedIn: true }, user }
-    : { status: { loggedIn: false }, user: null };
+const client = JSON.parse(localStorage.getItem('client'));
+const initialState = client
+    ? { status: { loggedIn: true }, client }
+    : { status: { loggedIn: false }, client: null };
 
 export const auth = {
     namespaced: true,
     state: initialState,
     actions: {
-        login({ commit }, user) {
-            return AuthService.login(user).then(
-                user => {
-                    commit('loginSuccess', user);
-                    return Promise.resolve(user);
+        login({ commit }, client) {
+            return AuthService.login(client).then(
+                client => {
+                    commit('loginSuccess', client);
+                    return Promise.resolve(client);
                 },
                 error => {
                     commit('loginFailure');
@@ -25,8 +25,8 @@ export const auth = {
             AuthService.logout();
             commit('logout');
         },
-        register({ commit }, user) {
-            return AuthService.register(user).then(
+        register({ commit }, client) {
+            return AuthService.register(client).then(
                 response => {
                     commit('registerSuccess');
                     return Promise.resolve(response.data);
@@ -39,17 +39,17 @@ export const auth = {
         }
     },
     mutations: {
-        loginSuccess(state, user) {
+        loginSuccess(state, client) {
             state.status.loggedIn = true;
-            state.user = user;
+            state.client = client;
         },
         loginFailure(state) {
             state.status.loggedIn = false;
-            state.user = null;
+            state.client = null;
         },
         logout(state) {
             state.status.loggedIn = false;
-            state.user = null;
+            state.client = null;
         },
         registerSuccess(state) {
             state.status.loggedIn = false;

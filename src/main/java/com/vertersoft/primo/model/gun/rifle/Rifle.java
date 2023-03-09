@@ -1,29 +1,25 @@
-package com.vertersoft.primo.model.guns.rifle;
+package com.vertersoft.primo.model.gun.rifle;
 
-import com.vertersoft.primo.model.guns.rifle.enums.RifleType;
-import lombok.*;
+import com.vertersoft.primo.model.gun.rifle.enums.RifleType;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.ToString;
 
-import javax.persistence.*;
+import java.util.UUID;
 
+@Data
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString
 public class Rifle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Enumerated(EnumType.STRING)
     private RifleType rifleType;
 
-    @Lob
     @ToString.Exclude
-    private Byte[] photo;
+    private String photo;
 
     private Float price;
 
@@ -57,7 +53,5 @@ public class Rifle {
 
     private String range;
 
-    @Lob
     private String description;
-
 }

@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  primo-app:
+    image: primo-app
+    container_name: primo-app
+    build: ./
+    ports:
+      - "8090:8000"
+    depends_on:
+      - primo_db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/primoDevDB
+    restart: always
+
+  primo_db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - DATASOURCE_URL=jdbc:postgresql://PostgreSQL:5432/postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=primoDevDB
+    restart: always

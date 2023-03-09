@@ -1,38 +1,37 @@
-package com.vertersoft.primo.model.users;
+package com.vertersoft.primo.model.client;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vertersoft.primo.model.users.role.Role;
-import lombok.*;
+import com.vertersoft.primo.model.client.role.Role;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-@Entity(name = "users")
-public class User implements UserBasic {
+@Entity
+public class Client {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     private String firstName;
 
     private String lastName;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-        joinColumns = @JoinColumn(name = "user_id"),
+    @JoinTable(name = "client_role",
+        joinColumns = @JoinColumn(name = "client_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
-    @Lob
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Byte[] photo;
+    private String photo;
 
     @NotBlank
     private String phoneNumber;
@@ -44,10 +43,10 @@ public class User implements UserBasic {
     @JsonIgnore
     private String password;
 
-    public User(String firstName,
+    public Client(String firstName,
                 String secondName,
                 List<Role> roles,
-                Byte[] photo,
+                String photo,
                 String phoneNumber,
                 @Email String email,
                 @NotBlank String password) {

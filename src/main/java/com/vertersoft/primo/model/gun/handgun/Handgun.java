@@ -1,22 +1,22 @@
-package com.vertersoft.primo.model.guns.handgun;
+package com.vertersoft.primo.model.gun.handgun;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vertersoft.primo.model.guns.handgun.enums.HandgunType;
-import lombok.*;
+import com.vertersoft.primo.model.gun.handgun.enums.HandgunType;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
+@Data
 @Entity
-@Getter
-@Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString
 public class Handgun {
 
     public Handgun() {
@@ -24,10 +24,9 @@ public class Handgun {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Setter(AccessLevel.NONE)
-    private Long id;
+    private UUID id;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -41,9 +40,8 @@ public class Handgun {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime modifiedAt;
 
-    @Lob
     @ToString.Exclude
-    private Byte[] photo;
+    private String photo;
 
     @PositiveOrZero
     private Float price;
@@ -77,6 +75,5 @@ public class Handgun {
 
     private String country;
 
-    @Lob
     private String description;
 }

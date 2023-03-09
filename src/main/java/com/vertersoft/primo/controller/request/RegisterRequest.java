@@ -1,22 +1,20 @@
 package com.vertersoft.primo.controller.request;
 
-import com.vertersoft.primo.model.users.UserBasic;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
 @Data
 @NoArgsConstructor
-public class RegisterRequest implements UserBasic {
+public class RegisterRequest {
 
     private String firstName;
 
     private String lastName;
 
-    private Byte[] photo;
+    private String photo;
 
     @Size(min = 10, max = 13)
     private String phoneNumber;

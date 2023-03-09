@@ -19,7 +19,7 @@
                     <router-link to="/moder" class="nav-link"> Moderator Board</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link v-if="currentUser" to="/user" class="nav-link"> User</router-link>
+                    <router-link v-if="currentUser" to="/client" class="nav-link"> Client</router-link>
                 </li>
             </div>
 
@@ -70,7 +70,7 @@
         },
         computed: {
             currentUser() {
-                return this.$store.state.auth.user;
+                return this.$store.state.auth.client;
             },
             showAdminBoard() {
                 if (this.currentUser && this.currentUser.roles) {

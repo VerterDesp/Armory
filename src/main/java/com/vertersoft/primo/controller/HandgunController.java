@@ -1,25 +1,21 @@
 package com.vertersoft.primo.controller;
 
-import com.vertersoft.primo.model.guns.handgun.Handgun;
+import com.vertersoft.primo.model.gun.handgun.Handgun;
 import com.vertersoft.primo.service.HandgunService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("handgun")
+@RequiredArgsConstructor
 public class HandgunController {
 
     private final HandgunService handgunService;
-
-    @Autowired
-    public HandgunController(HandgunService handgunService) {
-        this.handgunService = handgunService;
-    }
 
     @GetMapping
     public List<Handgun> findAllHandguns() {
@@ -27,29 +23,26 @@ public class HandgunController {
     }
 
     @GetMapping("{id}")
-    public Handgun findOne(@PathVariable Long id) {
-        return handgunService.findById(id);
+    public Handgun findOne(@PathVariable String id) {
+        return handgunService.findById(UUID.fromString(id));
     }
 
     @PostMapping
-    public ResponseEntity<String> save(@RequestBody @Valid Handgun handgun) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public String save(@RequestBody @Valid Handgun handgun) {
         handgunService.save(handgun);
-        return new ResponseEntity<>("OK", HttpStatus.CREATED);
+        return "OK";
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody @Valid Handgun handgun) {
-        handgunService.update(id, handgun);
-        return new ResponseEntity<>("Update of " +handgun.getModel()+ " successful", HttpStatus.OK);
+    public String update(@PathVariable String id, @RequestBody @Valid Handgun handgun) {
+        handgunService.update(UUID.fromString(id), handgun);
+        return "Update of " +handgun.getModel()+ " successful";
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
+    public String delete(@PathVariable UUID id) {
         handgunService.delete(id);
-        return new ResponseEntity<>("Deleted successful", HttpStatus.OK);
+        return "Deleted successful";
     }
-
-
-
-
 }

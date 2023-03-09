@@ -11,7 +11,7 @@
                     <div class="form-group">
                         <label for="firstName">First Name</label>
                         <input
-                                v-model="user.firstName"
+                                v-model="client.firstName"
                                 v-validate="'min:3|max:30'"
                                 type="text"
                                 class="form-control"
@@ -25,7 +25,7 @@
                     <div class="form-group">
                         <label for="lastName">Last Name</label>
                         <input
-                                v-model="user.lastName"
+                                v-model="client.lastName"
                                 v-validate="'min:3|max:30'"
                                 type="text"
                                 class="form-control"
@@ -37,9 +37,9 @@
                         >{{errors.first('lastName')}}</div>
                     </div>
 <!--                    <div class="form-group">-->
-<!--                        <label for="photo">User photo</label>-->
+<!--                        <label for="photo">Client photo</label>-->
 <!--                        <input-->
-<!--                                v-model="user.photo"-->
+<!--                                v-model="client.photo"-->
 <!--                                type="file"-->
 <!--                                class="form-control"-->
 <!--                                name="photo"-->
@@ -52,7 +52,7 @@
                     <div class="form-group">
                         <label for="phoneNumber">Phone Number</label>
                         <input
-                                v-model="user.phoneNumber"
+                                v-model="client.phoneNumber"
                                 v-validate="'numeric|required|min:10|max:13'"
                                 type="text"
                                 class="form-control"
@@ -66,7 +66,7 @@
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input
-                                v-model="user.email"
+                                v-model="client.email"
                                 v-validate="{required: false, email: true, max:50}"
                                 type="email"
                                 class="form-control"
@@ -80,7 +80,7 @@
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input
-                                v-model="user.password"
+                                v-model="client.password"
                                 v-validate="'required|min:6|max:40'"
                                 type="password"
                                 class="form-control"
@@ -107,13 +107,13 @@
 </template>
 
 <script>
-    import User from '@/models/user';
+    import Client from '@/models/client';
 
     export default {
         name: 'Register',
         data() {
             return {
-                user: new User('', '', '', '', '', ''),
+                client: new Client('', '', '', '', '', ''),
                 submitted: false,
                 successful: false,
                 message: ''
@@ -135,7 +135,7 @@
                 this.submitted = true;
                 this.$validator.validate().then(isValid => {
                     if (isValid) {
-                        this.$store.dispatch('auth/register', this.user).then(
+                        this.$store.dispatch('auth/register', this.client).then(
                             data => {
                                 this.message = data.message;
                                 this.successful = true;

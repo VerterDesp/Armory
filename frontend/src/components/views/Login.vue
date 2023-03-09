@@ -10,7 +10,7 @@
                 <div class="form-group">
                     <label for="login">Login</label>
                     <input
-                            v-model="user.username"
+                            v-model="client.username"
                             v-validate="'required'"
                             type="text"
                             class="form-control"
@@ -25,7 +25,7 @@
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input
-                            v-model="user.password"
+                            v-model="client.password"
                             v-validate="'required'"
                             type="password"
                             class="form-control"
@@ -52,13 +52,13 @@
 </template>
 
 <script>
-    import User from '@/models/user';
+    import Client from '@/models/client';
 
     export default {
         name: 'Login',
         data() {
             return {
-                user: new User('', ''),
+                client: new Client('', ''),
                 loading: false,
                 message: ''
             };
@@ -82,8 +82,8 @@
                         return;
                     }
 
-                    if (this.user.username && this.user.password) {
-                        this.$store.dispatch('auth/login', this.user).then(
+                    if (this.client.username && this.client.password) {
+                        this.$store.dispatch('auth/login', this.client).then(
                             () => {
                                 this.$router.push('/profile');
                             },

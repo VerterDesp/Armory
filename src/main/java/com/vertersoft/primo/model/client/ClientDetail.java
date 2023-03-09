@@ -1,4 +1,4 @@
-package com.vertersoft.primo.model.users;
+package com.vertersoft.primo.model.client;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -9,14 +9,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
-public class UserDetail implements UserDetails, UserBasic {
+public class ClientDetail implements UserDetails {
 
     @JsonIgnore
-    private Long id;
+    private UUID id;
 
     private String firstName;
 
@@ -24,7 +25,7 @@ public class UserDetail implements UserDetails, UserBasic {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    private Byte[] photo;
+    private String photo;
 
     private String phoneNumber;
 
@@ -33,20 +34,20 @@ public class UserDetail implements UserDetails, UserBasic {
     @JsonIgnore
     private String password;
 
-    public static UserDetail build(User user) {
-        List<GrantedAuthority> authoritiesFromRoles = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+    public static ClientDetail build(Client client) {
+        List<GrantedAuthority> authoritiesFromRoles = client.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getId()))
                 .collect(Collectors.toList());
 
-        return new UserDetail(
-                user.getId(),
-                user.getFirstName(),
-                user.getLastName(),
-                authoritiesFromRoles,
-                user.getPhoto(),
-                user.getPhoneNumber(),
-                user.getEmail(),
-                user.getPassword()
+        return new ClientDetail(
+          client.getId(),
+          client.getFirstName(),
+          client.getLastName(),
+          authoritiesFromRoles,
+          client.getPhoto(),
+          client.getPhoneNumber(),
+          client.getEmail(),
+          client.getPassword()
         );
     }
 
