@@ -9,7 +9,7 @@ services:
     depends_on:
       - primo_db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/primoDevDB
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://primo_db:5432/primoDevDB
     restart: always
 
   primo_db:
